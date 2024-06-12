@@ -122,9 +122,9 @@ void loop() {
 
 ## Simulação
 
-![simulacao](https://github.com/mchavesferreira/embarcados_freertos/assets/63993080/8d63cd6d-9467-4a49-8d63-73d8b0c1b204)
+<img srr=https://github.com/mchavesferreira/embarcados_freertos/assets/63993080/8d63cd6d-9467-4a49-8d63-73d8b0c1b204>
 
-<a href=https://wokwi.com/projects/400503259194429441>FreeRTOS - Como criar tarefas usando FreeRTOS no ESP32 Copy</a>
+<a href=https://wokwi.com/projects/400503259194429441>FreeRTOS - Como criar tarefas usando FreeRTOS no ESP32</a>
 
 <a href=https://wokwi.com/projects/400503009290433537>Tasks com GPIO</a>
 
