@@ -32,6 +32,8 @@ A complexidade da programação concorrente vem da necessidade de gerenciar corr
 
 ## Queue
 
+<img src= https://github.com/mchavesferreira/embarcados_freertos/blob/main/imagens/filas.gif>
+
 **Queue (Fila)** é uma estrutura de dados usada para armazenar e gerenciar um conjunto de elementos em que a ordem de inserção é importante. Em um RTOS, filas são frequentemente usadas para a comunicação entre tarefas. As filas operam segundo o princípio FIFO (First In, First Out), onde o primeiro elemento inserido é o primeiro a ser retirado. Elas são úteis para enviar mensagens ou dados entre diferentes tarefas, garantindo que a comunicação seja ordenada e eficiente [6]. Por exemplo, uma tarefa de leitura de sensor pode colocar dados em uma fila, e uma tarefa de processamento pode retirar esses dados para análise.
 
 ## Mutex
