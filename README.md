@@ -132,6 +132,13 @@ void loop() {
 
 <a href=https://wokwi.com/projects/400503009290433537>Tasks com GPIO</a>
 
+## FreeRTOS na prática
+
+Acesse estes exemplos: 
+
+https://github.com/mchavesferreira/embarcados_freertos/tree/main/exemplos_scripts_rtos
+
+https://github.com/mchavesferreira/embarcados_freertos/tree/main/example_freertos_arduino
 
 ## Referências
 
