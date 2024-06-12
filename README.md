@@ -1,5 +1,4 @@
-
-#FreeRTOS 
+# RTOS
 
 # Conceito de RTOS
 
@@ -17,12 +16,32 @@ O ESP32, um microcontrolador de baixo custo e alta performance da Espressif Syst
 
 Utilizar FreeRTOS no desenvolvimento de sistemas embarcados oferece diversas vantagens. Primeiramente, a abstração e a organização das tarefas tornam o código mais modular e de fácil manutenção. Além disso, a gestão eficiente de recursos e a capacidade de priorizar tarefas críticas melhoram o desempenho e a confiabilidade do sistema. O suporte extenso e a ampla adoção de FreeRTOS na comunidade de desenvolvimento também significam que há uma vasta quantidade de recursos, tutoriais e exemplos disponíveis, facilitando a aprendizagem e a resolução de problemas [4]. Por fim, a integração com ferramentas de desenvolvimento modernas e a compatibilidade com diversos microcontroladores tornam o FreeRTOS uma escolha versátil e poderosa para projetos de sistemas embarcados.
 
-## Referências
+# Programação Concorrente
 
-[1] https://www.freertos.org/RTOS.html
-[2] https://www.freertos.org/about-RTOS.html
-[3] https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html
-[4] https://www.freertos.org/FreeRTOS_Support.html
+**Programação Concorrente** é um paradigma de programação em que múltiplas tarefas ou processos são executados ao mesmo tempo, compartilhando recursos do sistema como memória e processador. Ao contrário da programação sequencial, onde as instruções são executadas uma após a outra, a programação concorrente permite que várias operações sejam realizadas simultaneamente, melhorando a eficiência e a capacidade de resposta de um sistema.
+
+Em sistemas embarcados e em tempo real, a programação concorrente é especialmente importante, pois permite a execução de múltiplas operações críticas de forma independente e paralela. Por exemplo, enquanto uma tarefa está lidando com a comunicação de dados, outra pode estar processando leituras de sensores, e uma terceira pode estar controlando um atuador. Isso é fundamental para garantir que todas as partes do sistema funcionem harmoniosamente e dentro dos limites de tempo especificados.
+
+A programação concorrente é implementada utilizando técnicas como **multi threading**, onde várias threads são criadas e gerenciadas pelo sistema operacional; **filas (queues)**, que são usadas para a comunicação ordenada entre tarefas; **mutexes**, que garantem acesso exclusivo a recursos compartilhados; e **semáforos**, que controlam o acesso simultâneo a múltiplas instâncias de um recurso.
+
+A complexidade da programação concorrente vem da necessidade de gerenciar corretamente a sincronização entre tarefas, evitar condições de corrida, deadlocks e outros problemas que podem surgir quando múltiplas tarefas tentam acessar os mesmos recursos ao mesmo tempo. No entanto, quando bem implementada, a programação concorrente resulta em sistemas mais robustos, eficientes e capazes de atender às demandas de tempo real de aplicações críticas.
+
+## Multi Threading
+
+**Multi Threading** é a capacidade de um sistema operacional de gerenciar a execução simultânea de múltiplas threads (tarefas) dentro de um único processo. Em sistemas embarcados, isso permite a execução de várias tarefas de forma concorrente, melhorando a eficiência e a capacidade de resposta do sistema. Cada thread é uma unidade independente de execução, que compartilha recursos como memória e processador com outras threads. A utilização de multi threading é essencial para desenvolver aplicações complexas que precisam realizar múltiplas operações ao mesmo tempo, como leitura de sensores, comunicação de dados e controle de atuadores [5].
+
+## Queue
+
+**Queue (Fila)** é uma estrutura de dados usada para armazenar e gerenciar um conjunto de elementos em que a ordem de inserção é importante. Em um RTOS, filas são frequentemente usadas para a comunicação entre tarefas. As filas operam segundo o princípio FIFO (First In, First Out), onde o primeiro elemento inserido é o primeiro a ser retirado. Elas são úteis para enviar mensagens ou dados entre diferentes tarefas, garantindo que a comunicação seja ordenada e eficiente [6]. Por exemplo, uma tarefa de leitura de sensor pode colocar dados em uma fila, e uma tarefa de processamento pode retirar esses dados para análise.
+
+## Mutex
+
+**Mutex (Mutual Exclusion)** é um mecanismo de sincronização usado para evitar que múltiplas tarefas acessem um recurso compartilhado ao mesmo tempo. Quando uma tarefa precisa acessar um recurso compartilhado, ela "tranca" o mutex, impedindo outras tarefas de acessar o mesmo recurso até que o mutex seja "destrancado". Isso garante que os dados não sejam corrompidos por acessos simultâneos e que o recurso seja usado de forma segura e controlada [7]. Mutexes são essenciais em ambientes de multi threading para proteger variáveis compartilhadas, buffers e outras estruturas de dados.
+
+## Semaphore
+
+**Semaphore (Semáforo)** é outro mecanismo de sincronização usado para controlar o acesso a recursos compartilhados. Semáforos podem ser contadores binários (binários) ou contadores (contadores). Um semáforo binário funciona de forma similar a um mutex, permitindo ou bloqueando o acesso a um recurso único. Semáforos contadores, por outro lado, permitem que um número específico de tarefas acesse um recurso simultaneamente [8]. Eles são úteis para gerenciar múltiplos instâncias de recursos limitados, como conexões de rede ou slots de buffer.
+
 
 
 #Primeiro Código FreeRTOS
@@ -101,6 +120,31 @@ void loop() {
 </details>
 
 
+
+## Referências
+
+
+[1] https://www.freertos.org/RTOS.html
+
+[2] https://www.freertos.org/about-RTOS.html
+
+[3] https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html
+
+[4] https://www.freertos.org/FreeRTOS_Support.html
+
+[5] https://www.freertos.org/implementing-a-task.html  
+
+[6] https://www.freertos.org/Embedded-RTOS-Queues.html  
+
+[7] https://www.freertos.org/Real-time-RTOS-mutexes.html  
+
+[8] https://www.freertos.org/Real-time-RTOS-semaphores.html  
+
+[9] https://en.wikipedia.org/wiki/Concurrent_computing  
+
+[10] https://www.geeksforgeeks.org/introduction-of-parallel-computing/  
+
+[11] https://www.cs.cmu.edu/~fp/courses/15440-s14/lectures/02-concurrency.pdf  
 
 
 
