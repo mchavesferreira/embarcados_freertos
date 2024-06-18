@@ -38,11 +38,16 @@ Mesmo threads com alta prioridade somente executam quando nenhum tratador de int
 FreeRTOS oferece uma variada gama de mecanismos para a comunicação e sincronização entre threads. Entre os oferecidos estão:
 
 **Basic Critical Sections:** quando regiões de código são protegidas com as macros “taskENTER_CRITICAL()” e “taskEXIT_CRITICAL()”. Elas desabilitam interrupções impedindo a preempção da thread em execução. Podem ser aninhadas pois o microkernel mantém uma contagem do número de operações ENTER e somente retorna a habilitar interrupções quando este número volta a zero.
+
 **Suspending (Locking)** o escalonador: quando o escalonador é impedido de atuar de forma que a thread em execução não poderá ser preemptada por outras threads, porém as interrupções permanecem habilitadas e tratadores de interrupção poderão ser acionados.
 Mutex: os quais incluem o mecanismo de herança de prioridade.
+
 **Semáforos binários:** usados para que tratadores de interrupção possam liberar threads em espera sem perder interrupções que sejam sinalizadas enquanto aquela thread executa. Ele é usado para implementar a “deferred interrupt processing” na terminologia do FreeRTOS.
+
 **Semáforos contadores:** onde as operações clássicas P e V são chamadas de “taken” e “given” respectivamente.
+
 **Task notifications:** que permite uma thread ou um tratador de interrupção sinalizar diretamente outras threads sem a necessidade de um objeto adicional tal como um mutex ou semáforo. Trata-se de um mecanismo de baixo custo em processador e memória. Entretanto, é necessário especificar diretamente a thread que será sinalizada e somente um sinal pode estar pendente para cada thread a cada momento.
+
 **Queues:** que são um dos principais mecanismos de comunicação providos pelo FreeRTOS. Elas permitem comunicação thread para thread, thread para tratador de interrupção e tratador de interrupção para thread. Uma Queue pode conter um número finito de dados de tamanho fixo. Tanto o número como o tamanho de cada dado são definidos na criação da Queue. Dados são normalmente removidos na mesma ordem na qual foram depositados. Os dados são efetivamente copiados para a memória da Queue e depois para a memória da thread. O acesso à Queue é sincronizado pelo microkernel. No caso da retirada de dados de uma Queue vazia, a thread pode optar por ficar bloqueada até algum dado estar disponível ou por um tempo máximo. O mesmo acontece quando a thread tenta depositar um dado em uma Queue lotada.
 
 FreeRTOS oferece a possibilidade de uma thread permanecer bloqueada aguardando pela ocorrência da combinação de um ou mais eventos. Para isto é usado o mecanismo de “Event Groups” o qual é útil para sincronizar múltiplas threads as quais esperam por um evento qualquer entre múltiplos eventos ou pela ocorrência combinada de vários eventos.
