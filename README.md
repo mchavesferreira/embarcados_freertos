@@ -140,6 +140,10 @@ https://github.com/mchavesferreira/embarcados_freertos/tree/main/exemplos_script
 
 https://github.com/mchavesferreira/embarcados_freertos/tree/main/example_freertos_arduino
 
+https://github.com/FBSeletronica/Curso-primeiros-passos-com-freeRTOS-Codigos
+![image](https://github.com/user-attachments/assets/376b56a7-14d0-4ab4-9027-c493f2cda3f3)
+
+
 ## Referências
 
 
