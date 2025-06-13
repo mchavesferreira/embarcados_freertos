@@ -1,7 +1,7 @@
 /*********************************************************
 * Exemplo para assinatura e publicação em  tópico MQTT, leitura de teclado e exibição lcd
 * Por: Fábio Souza
-* Adaptação: Marcos Chaves junho/2021
+* Adaptação: Marcos Chaves junho/2025
 *********************************************************/
 
 /*
