@@ -143,6 +143,43 @@ https://github.com/mchavesferreira/embarcados_freertos/tree/main/example_freerto
 https://github.com/FBSeletronica/Curso-primeiros-passos-com-freeRTOS-Codigos
 
 
+### FreeRTOS x Zephyr
+
+
+### 🔄 **Resumo Comparativo: FreeRTOS vs Zephyr**
+
+| Característica               | **FreeRTOS**                                        | **Zephyr RTOS**                                                    |
+| ---------------------------- | --------------------------------------------------- | ------------------------------------------------------------------ |
+| **Licença**                  | MIT (muito permissiva)                              | Apache 2.0 (também permissiva)                                     |
+| **Modelo de RTOS**           | Kernel mínimo, tempo real preemptivo                | Kernel modular, suportando preemptivo e cooperativo                |
+| **Arquitetura**              | Monolítica e leve                                   | Modular, com subsistemas integrados (drivers, stack de rede, etc.) |
+| **Alocação de Memória**      | Suporta dinâmica e estática                         | Preferência por alocação estática (mas suporta dinâmica)           |
+| **API**                      | Própria e enxuta                                    | POSIX-like (inspirada em padrões), mais robusta                    |
+| **Suporte a dispositivos**   | Precisa de BSP e HAL externos (Ex: STM32 HAL, etc.) | Já inclui HALs e drivers no próprio RTOS                           |
+| **Rede / TCP/IP**            | Requer pilhas externas (como LwIP, FreeRTOS+TCP)    | Stack de rede integrada e configurável                             |
+| **Segurança e Certificação** | FreeRTOS SAFETY e AWS Certifiable Kernel            | Foco em segurança desde o início, suporte a Trusted Firmware, etc. |
+| **Gerenciamento de Energia** | Básico, depende de implementação do usuário         | Subsystem de gerenciamento de energia avançado                     |
+| **Comunidade / Suporte**     | Ampla adoção na indústria, documentação direta      | Forte suporte da Linux Foundation, documentação extensiva          |
+| **Ferramentas**              | Simples, usa makefiles ou CMake                     | Integração com **Zephyr SDK**, **west**, e **CMake**               |
+| **Curva de Aprendizado**     | Curta, ideal para iniciantes                        | Mais íngreme, devido à complexidade e flexibilidade                |
+
+---
+
+### 📌 **Quando usar qual?**
+
+| Caso de Uso                                                                              | Melhor Opção                                   |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| Projetos pequenos, simples, com controle total do sistema                                | **FreeRTOS**                                   |
+| Projetos maiores, conectados, com recursos como drivers integrados, segurança, BLE, etc. | **Zephyr**                                     |
+| Sistemas com necessidade de certificação funcional (ex: automotivo, industrial)          | **Ambos são viáveis**, com versões específicas |
+
+---
+
+### 🔧 Exemplo prático
+
+* **FreeRTOS**: ideal para um sistema bare-metal com um microcontrolador STM32 que precisa apenas de algumas tasks simples.
+* **Zephyr**: ideal para um dispositivo IoT com Wi-Fi/BLE, atualizações OTA, criptografia, e suporte a múltiplas plataformas.
+
 
 ## Referências
 
