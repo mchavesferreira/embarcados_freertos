@@ -212,7 +212,7 @@ vTaskDelete(TaskHandle_t xTask);
   * `xQueueReceive(fila, &dado, timeout)` → retira um item da fila.
 
 
-## Semaphore
+## Semáforo (Semaphore)
 
 **Semaphore (Semáforo)** é outro mecanismo de sincronização usado para controlar o acesso a recursos compartilhados. Semáforos podem ser contadores binários (binários) ou contadores (contadores). Um semáforo binário funciona de forma similar a um mutex, permitindo ou bloqueando o acesso a um recurso único. Semáforos contadores, por outro lado, permitem que um número específico de tarefas acesse um recurso simultaneamente [8]. Eles são úteis para gerenciar múltiplos instâncias de recursos limitados, como conexões de rede ou slots de buffer.
 
@@ -222,7 +222,7 @@ vTaskDelete(TaskHandle_t xTask);
   * `xSemaphoreTake(sem, timeout)` → tarefa tenta “pegar” (se não disponível, fica bloqueada).
   * `xSemaphoreGive(sem)` → libera, acordando quem espera.
     
-## Mutex
+## Mutex (Mutual Exclusion Semaphore)
 
  Garantir **exclusão mútua** no acesso a recursos compartilhados (ex.: porta serial, memória, periféricos) Garantir **exclusão mútua** no acesso a recursos compartilhados (ex.: porta serial, memória, periféricos)
  
