@@ -181,6 +181,20 @@ A complexidade da programação concorrente vem da necessidade de gerenciar corr
   * Suspender temporariamente uma tarefa de log quando não é necessária.
   * Reduzir consumo de RAM/CPU em certas fases da aplicação.
 
+### 5. Finalizada
+
+* Para “matar” uma tarefa, usamos:
+
+```c
+vTaskDelete(TaskHandle_t xTask);
+```
+
+
+1. O **Task Control Block (TCB)** da tarefa é liberado.
+2. A **pilha (stack)** associada à tarefa também é liberada (quando criada com `xTaskCreate`, que usa alocação dinâmica).
+3. A tarefa deixa de aparecer nas listas do escalonador.
+4. Depois disso, a tarefa não existe mais no sistema → não consome CPU nem RAM.
+
 
 
 ## Queue (Filas)
