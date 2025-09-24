@@ -210,6 +210,17 @@ vTaskDelete(TaskHandle_t xTask);
   * `xQueueCreate(tamanho, tamanhoItem)` → cria a fila.
   * `xQueueSend(fila, &dado, timeout)` → envia um item para a fila.
   * `xQueueReceive(fila, &dado, timeout)` → retira um item da fila.
+
+
+## Semaphore
+
+**Semaphore (Semáforo)** é outro mecanismo de sincronização usado para controlar o acesso a recursos compartilhados. Semáforos podem ser contadores binários (binários) ou contadores (contadores). Um semáforo binário funciona de forma similar a um mutex, permitindo ou bloqueando o acesso a um recurso único. Semáforos contadores, por outro lado, permitem que um número específico de tarefas acesse um recurso simultaneamente [8]. Eles são úteis para gerenciar múltiplos instâncias de recursos limitados, como conexões de rede ou slots de buffer.
+
+* **Funções principais:**
+
+  * `xSemaphoreCreateBinary()` → cria o semáforo binário.
+  * `xSemaphoreTake(sem, timeout)` → tarefa tenta “pegar” (se não disponível, fica bloqueada).
+  * `xSemaphoreGive(sem)` → libera, acordando quem espera.
     
 ## Mutex
 
@@ -223,15 +234,6 @@ vTaskDelete(TaskHandle_t xTask);
   * `xSemaphoreTake(mutex, timeout)` → trava o recurso.
   * `xSemaphoreGive(mutex)` → libera o recurso.
 
-## Semaphore
-
-**Semaphore (Semáforo)** é outro mecanismo de sincronização usado para controlar o acesso a recursos compartilhados. Semáforos podem ser contadores binários (binários) ou contadores (contadores). Um semáforo binário funciona de forma similar a um mutex, permitindo ou bloqueando o acesso a um recurso único. Semáforos contadores, por outro lado, permitem que um número específico de tarefas acesse um recurso simultaneamente [8]. Eles são úteis para gerenciar múltiplos instâncias de recursos limitados, como conexões de rede ou slots de buffer.
-
-* **Funções principais:**
-
-  * `xSemaphoreCreateBinary()` → cria o semáforo binário.
-  * `xSemaphoreTake(sem, timeout)` → tarefa tenta “pegar” (se não disponível, fica bloqueada).
-  * `xSemaphoreGive(sem)` → libera, acordando quem espera.
  
 ## Event Group
 
