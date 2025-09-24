@@ -80,7 +80,7 @@ void Tarefa1( void * parametro )
       if(xSemaphoreTake(xMutex, portMAX_DELAY) == pdTRUE)
       {
         Serial.println("-----------------");
-        Serial.println("Terefa 1");
+        Serial.println("Tarefa 1");
         Serial.println("-----------------");        
       }
       xSemaphoreGive(xMutex);
@@ -98,7 +98,7 @@ void Tarefa2( void * parametro )
       if(xSemaphoreTake(xMutex, portMAX_DELAY) == pdTRUE)
       {
         Serial.println("-----------------");
-        Serial.println("Terefa 2");
+        Serial.println("Tarefa 2");
         Serial.println("-----------------");        
       }
       xSemaphoreGive(xMutex);
@@ -134,7 +134,7 @@ void Tarefa4( void * parametro )
       if(xSemaphoreTake(xMutex, portMAX_DELAY) == pdTRUE)
       {
         Serial.println("-----------------");
-        Serial.println("Terefa 4");
+        Serial.println("Tarefa 4");
         Serial.println("-----------------");        
       }
       //xSemaphoreGive(xMutex);
@@ -142,3 +142,4 @@ void Tarefa4( void * parametro )
     vTaskDelay(1000/portTICK_PERIOD_MS);
   }
 }
+
