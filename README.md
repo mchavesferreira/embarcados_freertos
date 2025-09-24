@@ -183,7 +183,7 @@ A complexidade da programação concorrente vem da necessidade de gerenciar corr
 
 
 
-## Queue
+## Queue (Filas)
 
 <img src= https://github.com/mchavesferreira/embarcados_freertos/blob/main/imagens/filas.gif>
 
@@ -191,17 +191,47 @@ A complexidade da programação concorrente vem da necessidade de gerenciar corr
 
 <img src=https://github.com/mchavesferreira/embarcados_freertos/blob/main/imagens/rtos-queue-fifo-animacao.gif>
 
+* **Funções principais:**
+
+  * `xQueueCreate(tamanho, tamanhoItem)` → cria a fila.
+  * `xQueueSend(fila, &dado, timeout)` → envia um item para a fila.
+  * `xQueueReceive(fila, &dado, timeout)` → retira um item da fila.
+    
 ## Mutex
 
+ Garantir **exclusão mútua** no acesso a recursos compartilhados (ex.: porta serial, memória, periféricos) Garantir **exclusão mútua** no acesso a recursos compartilhados (ex.: porta serial, memória, periféricos)
+ 
 **Mutex (Mutual Exclusion)** é um mecanismo de sincronização usado para evitar que múltiplas tarefas acessem um recurso compartilhado ao mesmo tempo. Quando uma tarefa precisa acessar um recurso compartilhado, ela "tranca" o mutex, impedindo outras tarefas de acessar o mesmo recurso até que o mutex seja "destrancado". Isso garante que os dados não sejam corrompidos por acessos simultâneos e que o recurso seja usado de forma segura e controlada [7]. Mutexes são essenciais em ambientes de multi threading para proteger variáveis compartilhadas, buffers e outras estruturas de dados.
+
+* **Funções principais:**
+
+  * `xSemaphoreCreateMutex()` → cria o mutex.
+  * `xSemaphoreTake(mutex, timeout)` → trava o recurso.
+  * `xSemaphoreGive(mutex)` → libera o recurso.
 
 ## Semaphore
 
 **Semaphore (Semáforo)** é outro mecanismo de sincronização usado para controlar o acesso a recursos compartilhados. Semáforos podem ser contadores binários (binários) ou contadores (contadores). Um semáforo binário funciona de forma similar a um mutex, permitindo ou bloqueando o acesso a um recurso único. Semáforos contadores, por outro lado, permitem que um número específico de tarefas acesse um recurso simultaneamente [8]. Eles são úteis para gerenciar múltiplos instâncias de recursos limitados, como conexões de rede ou slots de buffer.
 
+* **Funções principais:**
 
+  * `xSemaphoreCreateBinary()` → cria o semáforo binário.
+  * `xSemaphoreTake(sem, timeout)` → tarefa tenta “pegar” (se não disponível, fica bloqueada).
+  * `xSemaphoreGive(sem)` → libera, acordando quem espera.
+ 
+## Event Group
 
-#Primeiro Código FreeRTOS
+Event Group: conjunto de bandeiras (bits) para esperar múltiplos eventos.
+
+Event Groups (Grupos de Eventos) são mecanismos de sincronização que usam bits para representar eventos. Cada bit indica se um evento ocorreu, e as tarefas podem definir ou aguardar esses bits. Eles permitem que uma tarefa espere um evento específico ou múltiplos eventos antes de continuar, evitando a necessidade de vários semáforos individuais.
+
+* **Funções principais:**
+
+  * `xEventGroupSetBits(grupo, bits)` → define quais eventos ocorreram.
+  * `xEventGroupWaitBits(grupo, bits, limpar, esperarTodos, timeout)` → tarefa espera até que os bits de evento desejados estejam setados.
+  * 
+
+# Primeiro Código FreeRTOS
 
 Exemplo 1:
 
