@@ -277,6 +277,29 @@ void loop() {
 </details>
 
 
+## O que é `xTaskCreatePinnedToCore` (ESP32)
+
+É uma **extensão do ESP-IDF** (não faz parte do FreeRTOS “puro”) que cria uma tarefa **presa a um núcleo específico** do ESP32 (dual-core).
+Assinatura típica:
+
+```c
+BaseType_t xTaskCreatePinnedToCore(
+    TaskFunction_t pvTaskCode,      // função da task
+    const char * const pcName,      // nome (debug)
+    const uint32_t usStackDepth,    // tamanho da pilha (words)
+    void *pvParameters,             // parâmetro
+    UBaseType_t uxPriority,         // prioridade
+    TaskHandle_t *pvCreatedTask,    // (opcional) handle de saída
+    const BaseType_t xCoreID        // 0 ou 1 no ESP32 clássico
+);
+```
+
+* `xCoreID = 0` → fixa no **core 0** (tradicionalmente onde rodam Wi-Fi/BLE e parte do sistema).
+* `xCoreID = 1` → fixa no **core 1** (onde o `loopTask` do Arduino costuma rodar).
+* Em targets *single-core* (ex.: ESP32-S2), “pinar” é irrelevante (só há o core 0).
+* Em IDF mais recentes existe também o conceito de **afinidade** de CPU (ex.: `tskNO_AFFINITY` e `vTaskCoreAffinitySet()`), mas `xTaskCreatePinnedToCore` continua muito usado no ecossistema ESP32/Arduino.
+
+
 ## Simulação
 
 <img srr=https://github.com/mchavesferreira/embarcados_freertos/assets/63993080/8d63cd6d-9467-4a49-8d63-73d8b0c1b204>
@@ -358,6 +381,5 @@ https://github.com/FBSeletronica/Curso-primeiros-passos-com-freeRTOS-Codigos
 [10] https://www.geeksforgeeks.org/introduction-of-parallel-computing/  
 
 [11] https://www.cs.cmu.edu/~fp/courses/15440-s14/lectures/02-concurrency.pdf  
-
 
 
