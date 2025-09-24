@@ -30,6 +30,159 @@ A complexidade da programação concorrente vem da necessidade de gerenciar corr
 
 **Multi Threading** é a capacidade de um sistema operacional de gerenciar a execução simultânea de múltiplas threads (tarefas) dentro de um único processo. Em sistemas embarcados, isso permite a execução de várias tarefas de forma concorrente, melhorando a eficiência e a capacidade de resposta do sistema. Cada thread é uma unidade independente de execução, que compartilha recursos como memória e processador com outras threads. A utilização de multi threading é essencial para desenvolver aplicações complexas que precisam realizar múltiplas operações ao mesmo tempo, como leitura de sensores, comunicação de dados e controle de atuadores [5].
 
+
+# 📌 Tarefas (*Tasks*) no FreeRTOS
+
+### O que é uma *task*?
+
+* Uma **task** é a unidade básica de execução no **FreeRTOS**, equivalente a uma *thread* em sistemas operacionais.
+* Cada task é uma função em C que **roda concorrentemente** com outras, gerenciada pelo **escalonador do FreeRTOS**.
+* O programador define:
+
+  * O que a task faz (*função da task*).
+  * Sua prioridade.
+  * Tamanho da pilha.
+  * Parâmetros iniciais.
+
+---
+
+## 🧩 Partes constituintes de uma task
+
+1. **Função da task**
+
+   * Estrutura típica em C:
+
+     ```c
+     void vTaskFunction(void *pvParameters) {
+         for( ;; ) {
+             // Código da tarefa
+         }
+     }
+     ```
+   * Deve ter **loop infinito** (`for(;;)`), pois não retorna.
+
+2. **Contexto de execução**
+
+   * Registradores, ponteiros e variáveis locais preservados pelo kernel.
+
+3. **Stack (Pilha da tarefa)**
+
+   * Espaço de memória privado de cada tarefa.
+
+4. **Task Control Block (TCB)**
+
+   * Estrutura interna usada pelo kernel para armazenar:
+
+     * Estado (Running, Ready, Blocked, Suspended).
+     * Ponteiro da pilha.
+     * Prioridade.
+     * Parâmetros passados.
+
+---
+
+## ⚙️ Principais funções da biblioteca FreeRTOS (fluxo de vida da task)
+
+### 🔹 **Criação**
+
+* **`xTaskCreate()`**
+  Cria uma nova tarefa.
+
+  ```c
+  BaseType_t xTaskCreate(
+      TaskFunction_t pvTaskCode,   // Função da tarefa
+      const char * const pcName,   // Nome (debug)
+      configSTACK_DEPTH_TYPE usStackDepth, // Tamanho da pilha
+      void *pvParameters,          // Parâmetros
+      UBaseType_t uxPriority,      // Prioridade
+      TaskHandle_t *pxCreatedTask  // Handle (opcional)
+  );
+  ```
+* **`xTaskCreateStatic()`**
+  Versão sem alocação dinâmica (memória estática).
+
+---
+
+### 🔹 **Execução e Controle**
+
+* **`vTaskDelay(ticks)`**
+  Bloqueia a task por um período de tempo.
+
+* **`vTaskDelayUntil()`**
+  Delay relativo ao último “despertar”, útil para tarefas periódicas.
+
+* **`vTaskSuspend(TaskHandle_t xTask)`**
+  Suspende a execução da tarefa.
+
+* **`vTaskResume(TaskHandle_t xTask)`**
+  Retoma a execução de uma tarefa suspensa.
+
+* **`vTaskPrioritySet(TaskHandle_t, UBaseType_t)`**
+  Altera prioridade em tempo de execução.
+
+---
+
+### 🔹 **Sincronização e Comunicação**
+
+* **Filas (Queues):** `xQueueCreate`, `xQueueSend`, `xQueueReceive`.
+* **Semáforos:** `xSemaphoreCreateBinary`, `xSemaphoreTake`, `xSemaphoreGive`.
+* **Mutexes:** `xSemaphoreCreateMutex`, usados para exclusão mútua.
+* **Event Groups:** `xEventGroupSetBits`, `xEventGroupWaitBits`.
+
+---
+
+### 🔹 **Finalização**
+
+* **`vTaskDelete(TaskHandle_t xTask)`**
+  Remove a tarefa do sistema.
+
+  * Se for chamado com `NULL`, a própria tarefa se deleta.
+  * Memória da pilha e TCB é liberada (no caso de `xTaskCreate`, que usa heap).
+
+
+
+## 📌 Estados de Tarefa no FreeRTOS
+
+### 1. **Running (Executando)**
+
+* Estado da tarefa que **está usando a CPU naquele instante**.
+* Apenas **uma tarefa por núcleo** pode estar em Running.
+* O escalonador escolhe a tarefa de maior prioridade **entre as que estão em Ready**.
+
+---
+
+### 2. **Ready (Pronta)**
+
+* A tarefa **está pronta para executar**, mas ainda não foi escolhida pelo escalonador.
+* Ela já tem todos os recursos necessários, mas aguarda a CPU.
+* Se houver outra tarefa com prioridade maior, esta continuará aguardando em Ready.
+
+---
+
+### 3. **Blocked (Bloqueada)**
+
+* A tarefa **está aguardando um evento ou temporizador**.
+* Exemplos:
+
+  * `vTaskDelay()` → espera até o tempo expirar.
+  * `xQueueReceive()` → espera até a chegada de uma mensagem.
+  * `xSemaphoreTake()` → espera até que o semáforo esteja disponível.
+* Ao ocorrer o evento (ou timeout), o kernel move a tarefa de volta para **Ready**.
+* Não consome CPU enquanto está em Blocked.
+
+---
+
+### 4. **Suspended (Suspensa)**
+
+* Estado em que a tarefa foi **removida manualmente** da lista de tarefas elegíveis.
+* Feito com `vTaskSuspend()`.
+* Ela **não volta automaticamente**: apenas `vTaskResume()` a coloca novamente em **Ready**.
+* Usado em casos específicos, por exemplo:
+
+  * Suspender temporariamente uma tarefa de log quando não é necessária.
+  * Reduzir consumo de RAM/CPU em certas fases da aplicação.
+
+
+
 ## Queue
 
 <img src= https://github.com/mchavesferreira/embarcados_freertos/blob/main/imagens/filas.gif>
