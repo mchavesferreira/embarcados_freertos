@@ -364,9 +364,14 @@ https://github.com/mchavesferreira/embarcados_freertos/tree/main/example_freerto
 
 https://github.com/FBSeletronica/Curso-primeiros-passos-com-freeRTOS-Codigos
 
+## Fórum de Sistemas Embarcados e IoT 2025
+
 
 ### FreeRTOS x Zephyr
 
+Palestra: Zephyr RTOS: Primeiros Passos
+Palestrante: Jorge Guzman
+https://github.com/JorgeGzm/EmbarcadosIot2025
 
 ### 🔄 **Resumo Comparativo: FreeRTOS vs Zephyr**
 
