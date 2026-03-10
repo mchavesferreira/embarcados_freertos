@@ -27,7 +27,7 @@ void setup() {
 //  xTaskCreatePinnedToCore(nome da função, "tarefa", tamanho da pilha, Parametros, prioridade, alteração manual, núcleo);
 
  xTaskCreate(vTask1,"TASK1", configMINIMAL_STACK_SIZE, NULL, 1, &task1Handle);  // 
- xTaskCreate(vTask2,"TASK1", configMINIMAL_STACK_SIZE+1024, NULL, 2, &task2Handle);
+ xTaskCreate(vTask2,"TASK2", configMINIMAL_STACK_SIZE+1024, NULL, 2, &task2Handle);
 
 
 }
@@ -61,5 +61,6 @@ void vTask2(void *pvParameters)
      Serial.println("task 2: " + String(cont++));
          vTaskDelay(pdMS_TO_TICKS(1000));
    }
+
 
 }
